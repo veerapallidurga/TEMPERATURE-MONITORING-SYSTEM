@@ -1,0 +1,30 @@
+import serial
+import tkinter as tk
+
+# Set up serial communication with Arduino
+ser = serial.Serial('COM3', 9600)  # Adjust COM port as needed
+
+# Function to update temperature
+def update_temp():
+    # Read the temperature value from Arduino
+    temperature = ser.readline().decode().strip()
+    
+    # Update the label in the GUI
+    temp_label.config(text=f"Temperature: {temperature} °C")
+    
+    # Call the function every 1 second
+    root.after(1000, update_temp)
+
+# Set up the Tkinter window
+root = tk.Tk()
+root.title("Temperature Monitoring System")
+
+# Create a label to display the temperature
+temp_label = tk.Label(root, text="Temperature: -- °C", font=('Arial', 24))
+temp_label.pack(pady=20)
+
+# Start updating the temperature
+update_temp()
+
+# Run the Tkinter event loop
+root.mainloop()

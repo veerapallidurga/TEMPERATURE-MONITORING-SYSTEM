@@ -1,0 +1,14 @@
+// LM35 Temperature Sensor connected to A0 pin of Arduino
+int tempPin = A0; 
+float temperature;
+
+void setup() {
+  Serial.begin(9600); // Start serial communication
+}
+
+void loop() {
+  int sensorValue = analogRead(tempPin); // Read the sensor value
+  temperature = (sensorValue * (5.0 / 1023.0)) * 100; // Convert to temperature in Celsius
+  Serial.println(temperature); // Send temperature value to serial monitor
+  delay(1000); // Delay for 1 second before the next reading
+}
